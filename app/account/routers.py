@@ -16,7 +16,7 @@ from app.account.services import (
     reset_password_with_token,
 )
 
-router = APIRouter(prefix="/account", tags=["Account"])
+router = APIRouter()
 
 @router.post("/register", response_model=UserOut)
 async def register(session: SessionDep, user: UserCreate):
