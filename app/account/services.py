@@ -22,6 +22,7 @@ async def create_user(session: AsyncSession, user: UserCreate):
         email=user.email,
         name=user.name,
         hashed_password=hash_password(user.password),
+        is_admin = user.is_admin,
         is_verified=False
     )
 
