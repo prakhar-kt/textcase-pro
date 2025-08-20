@@ -11,6 +11,7 @@ from app.converter.services import (
     get_or_create_user_credits,
     get_credits_request_list,
     submit_credit_request,
+    approve_credit_request,
 )
 from app.db.config import SessionDep
 from app.account.models import User
@@ -56,3 +57,14 @@ async def buy_credits(session: SessionDep,
     request = await submit_credit_request(session, user, data.credits_requested)
     
     return request
+
+@router.post("approve-credit/{request_id}", 
+             response_model=CreditRequestOut)
+async def approve_request(
+    session: SessionDep,
+    request_id: int,
+    user: User = Depends(require_admin)
+    ):
+    
+    return await approve_credit_request(session, request_id)
+
